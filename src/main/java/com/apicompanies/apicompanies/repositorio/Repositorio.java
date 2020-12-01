@@ -1,10 +1,13 @@
 package com.apicompanies.apicompanies.repositorio;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
@@ -17,18 +20,23 @@ public class Repositorio implements RepositorioInt {
 	
 	@Autowired
 	private DataSource dataSource;
-	
+	//private JdbcTemplate jdbcTemplate;
+
 	@Override
-	public void insertarEmpresa(Modelo mod) {
+	public List<Modelo> insertarEmpresa(Modelo mod) {
 		
 		String name = mod.getNombre();
 		SimpleJdbcCall jdbcCall = new SimpleJdbcCall(dataSource).withProcedureName("insertar_empresa").withCatalogName("procedimientos_empresas_out");
 		SqlParameterSource in = new MapSqlParameterSource().addValue("empresa", name);
 		Map<String, Object> out = jdbcCall.execute(in);
 		
-		String res = (String) out.get("respuesta");
-		System.out.println(res);
+		List<Modelo> list = new ArrayList<Modelo>();
+		Modelo data = new Modelo();
+		data.setNombre(name);
+		data.setRes((String) out.get("respuesta"));
+		list.add(data);
 		
+		return list;
 	}
 
 }
