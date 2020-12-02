@@ -2,7 +2,7 @@ package com.apicompanies.apicompanies.modelo;
 
 public class Modelo implements ModeloInt {
 	
-	private int idEmpresa;
+	private Number idEmpresa;
 	private String nombre;
 	private String res;
 
@@ -19,12 +19,12 @@ public class Modelo implements ModeloInt {
 	}
 
 	@Override
-	public int getId() {
+	public Number getId() {
 		return idEmpresa;
 	}
 
 	@Override
-	public void setId(int idEmpresa) {
+	public void setId(Number idEmpresa) {
 		this.idEmpresa = idEmpresa;
 	}
 

@@ -6,9 +6,9 @@ public interface ModeloInt {
 	
 	public void Model(int idEmpresa, String nombre, String res);
 	
-	public int getId();
+	public Number getId();
 	
-	public void setId(int idEmpresa);
+	public void setId(Number idEmpresa);
 	
 	public String getNombre();
 	
