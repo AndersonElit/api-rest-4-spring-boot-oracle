@@ -40,6 +40,11 @@ public class Servicio implements ServicioInt {
 	public Modelo editarEmpresa(int id, String nombre) {
 		return repo.editarEmpresa(id, nombre);
 	}
+	
+	@Override
+	public List<ModeloCli> clientesEmpresa(String empresa) {
+		return repo.clientesEmpresa(empresa);
+	}
 
 	@Override
 	public ModeloR reporteEmpresa(String empresa) {

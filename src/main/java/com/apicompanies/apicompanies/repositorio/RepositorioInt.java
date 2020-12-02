@@ -18,6 +18,8 @@ public interface RepositorioInt {
 	
 	public Modelo editarEmpresa(int id, String nombre);
 	
+	public List<ModeloCli> clientesEmpresa(String empresa);
+	
 	public ModeloR reporteEmpresa(String empresa);
 	
 	public List<ModeloR> reporteEmpresas();

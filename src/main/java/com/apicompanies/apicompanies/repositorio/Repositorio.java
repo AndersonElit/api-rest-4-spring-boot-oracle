@@ -101,6 +101,35 @@ public class Repositorio implements RepositorioInt {
 		data.setRes((String) out.get("RESPUESTA"));
 		return data;
 	}
+	
+	@Override
+	public List<ModeloCli> clientesEmpresa(String empresa) {
+		
+		String sql = "select * from clientes where empresa = '" + empresa + "'" ;
+		List<ModeloCli> listaClientes = jdbcTemplate.query(sql, new ResultSetExtractor<List<ModeloCli>>() {
+			@Override
+			public List<ModeloCli> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List<ModeloCli> list = new ArrayList<ModeloCli>();
+				while (rs.next()) {
+					ModeloCli cliente = new ModeloCli();
+					cliente.setId(rs.getInt("ID_PERSONA"));
+					cliente.setCedula(rs.getLong("CEDULA"));
+					cliente.setTelefono(rs.getLong("TELEFONO"));
+					cliente.setDireccion(rs.getString("DIRECCION"));
+					cliente.setPrimerNombre(rs.getString("PRIMER_NOMBRE"));
+					cliente.setSegundoNombre(rs.getString("SEGUNDO_NOMBRE"));
+					cliente.setPrimerApellido(rs.getString("PRIMER_APELLIDO"));
+					cliente.setSegundoApellido(rs.getString("SEGUNDO_APELLIDO"));
+					cliente.setEmpresa(rs.getString("EMPRESA"));
+					cliente.setEstatus(rs.getString("ESTATUS"));
+					list.add(cliente);
+				}
+				return list;
+			}
+		});
+		
+		return listaClientes;
+	}
 
 
 	@Override

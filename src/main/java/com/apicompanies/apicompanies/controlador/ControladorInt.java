@@ -21,6 +21,8 @@ public interface ControladorInt {
 	
 	public Modelo editarEmpresa(@PathVariable int id, @PathVariable String nombre);
 	
+	public List<ModeloCli> clientesEmpresa(@PathVariable String empresa);
+	
 	public ModeloR reporteEmpresa(@PathVariable String empresa);
 	
 	public List<ModeloR> reporteEmpresas();

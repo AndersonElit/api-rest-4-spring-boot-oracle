@@ -49,6 +49,12 @@ public class Controlador implements ControladorInt {
 	public Modelo editarEmpresa(@PathVariable int id, @PathVariable String nombre) {
 		return serv.editarEmpresa(id, nombre);
 	}
+	
+	@Override
+	@RequestMapping(value="/clientesEmp/{empresa}", method = RequestMethod.POST)
+	public List<ModeloCli> clientesEmpresa(String empresa) {
+		return serv.clientesEmpresa(empresa);
+	}
 
 	@Override
 	@RequestMapping(value="/reporteEmp/{empresa}", method = RequestMethod.POST)
