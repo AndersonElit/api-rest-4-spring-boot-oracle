@@ -1,21 +1,44 @@
 CREATE PACKAGE procedimientos_empresas_out
 IS
     PROCEDURE insertar_empresa(empresa IN VARCHAR2, respuesta OUT VARCHAR2, new_id OUT NUMBER);
-    PROCEDURE buscar_empresa(id_emp IN NUMBER, empresa OUT VARCHAR2);
+    PROCEDURE buscar_empresa(id_emp IN NUMBER, empresa OUT VARCHAR2, respuesta OUT VARCHAR2);
     PROCEDURE eliminar_empresa(id_emp IN NUMBER, respuesta OUT VARCHAR2);
     PROCEDURE editar_empresa(id_emp IN NUMBER, nuevo_nombre IN VARCHAR2, respuesta OUT VARCHAR2);
     PROCEDURE reporte_por_empresa(nombre_emp IN VARCHAR2, numero_clientes OUT NUMBER);
+    PROCEDURE buscar_cliente(id_cli IN NUMBER, cedula OUT NUMBER, primer_nombre OUT VARCHAR2, primer_apellido OUT VARCHAR2, empresa OUT VARCHAR2, respuesta OUT VARCHAR2);
 END;
 /
 CREATE PACKAGE BODY procedimientos_empresas_out
 IS
 
     --PROCEDIMIENTO BUSCAR EMPRESA
-    PROCEDURE buscar_empresa(id_emp IN NUMBER, empresa OUT VARCHAR2)
+    PROCEDURE buscar_empresa(id_emp IN NUMBER, empresa OUT VARCHAR2, respuesta OUT VARCHAR2)
     AS
+        emp_num NUMBER;
     BEGIN
-        SELECT  nombre INTO empresa FROM empresas WHERE id_empresa = id_emp;      
+        SELECT COUNT(*) INTO emp_num FROM empresas WHERE id_empresa = id_emp;
+        
+        IF emp_num = 0 THEN
+            respuesta := 'EMPRESA-NO-EXISTE';
+        ELSE
+            SELECT  nombre INTO empresa FROM empresas WHERE id_empresa = id_emp;
+            respuesta := 'EMPRESA-ENCONTRADA';
+        END IF;
     END buscar_empresa;
+    
+    --PROCEDIMIENTO BUSCAR CLIENTE
+    PROCEDURE buscar_cliente(id_cli IN NUMBER, cedula OUT NUMBER, primer_nombre OUT VARCHAR2, primer_apellido OUT VARCHAR2, empresa OUT VARCHAR2, respuesta OUT VARCHAR2)
+    AS
+        cli_ex NUMBER;
+    BEGIN
+        SELECT COUNT(*) INTO cli_ex FROM clientes WHERE id_persona = id_cli;
+        IF cli_ex = 0 THEN
+            respuesta := 'CLIENTE-NO-EXISTE';
+        ELSE
+            SELECT cedula, primer_nombre, primer_apellido, empresa INTO cedula, primer_nombre, primer_apellido, empresa FROM clientes WHERE id_persona = id_cli;
+            respuesta := 'CLIENTE-RECUPERADO';
+        END IF;
+    END;
     
     --PROCEDIMIENTO INSERTAR EMPRESA
     PROCEDURE insertar_empresa(empresa IN VARCHAR2, respuesta OUT VARCHAR2, new_id OUT NUMBER)

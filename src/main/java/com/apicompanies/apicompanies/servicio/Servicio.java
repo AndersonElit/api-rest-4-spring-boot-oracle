@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.apicompanies.apicompanies.modelo.Modelo;
+import com.apicompanies.apicompanies.modelocli.ModeloCli;
 import com.apicompanies.apicompanies.modeloreporte.ModeloR;
 import com.apicompanies.apicompanies.repositorio.Repositorio;
 
@@ -24,6 +25,11 @@ public class Servicio implements ServicioInt {
 	public Modelo buscarEmpresa(int id) {
 		return repo.buscarEmpresa(id);
 	}
+	
+	@Override
+	public ModeloCli buscarCliente(int id) {
+		return repo.buscarCliente(id);
+	}
 
 	@Override
 	public Modelo eliminarEmpresa(int id) {
@@ -38,6 +44,11 @@ public class Servicio implements ServicioInt {
 	@Override
 	public ModeloR reporteEmpresa(String empresa) {
 		return repo.reporteEmpresa(empresa);
+	}
+	
+	@Override
+	public List<ModeloR> reporteEmpresas() {
+		return repo.reporteEmpresas();
 	}
 
 }

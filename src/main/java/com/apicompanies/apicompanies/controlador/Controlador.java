@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.apicompanies.apicompanies.modelo.Modelo;
+import com.apicompanies.apicompanies.modelocli.ModeloCli;
 import com.apicompanies.apicompanies.modeloreporte.ModeloR;
 import com.apicompanies.apicompanies.servicio.Servicio;
 
@@ -30,6 +31,12 @@ public class Controlador implements ControladorInt {
 	public Modelo buscarEmpresa(@PathVariable int id) {
 		return serv.buscarEmpresa(id);
 	}
+	
+	@Override
+	@RequestMapping(value="/buscarCli/{id}", method = RequestMethod.POST)
+	public ModeloCli buscarCliente(@PathVariable int id) {
+		return serv.buscarCliente(id);
+	}
 
 	@Override
 	@RequestMapping(value="/eliminarEmp/{id}", method = RequestMethod.DELETE)
@@ -47,6 +54,13 @@ public class Controlador implements ControladorInt {
 	@RequestMapping(value="/reporteEmp/{empresa}", method = RequestMethod.POST)
 	public ModeloR reporteEmpresa(@PathVariable String empresa) {
 		return serv.reporteEmpresa(empresa);
+	}
+	
+	
+	@Override
+	@RequestMapping(value="/reporteTotal", method = RequestMethod.GET)
+	public List<ModeloR> reporteEmpresas() {
+		return serv.reporteEmpresas();
 	}
 
 }
